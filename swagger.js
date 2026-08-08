@@ -5,8 +5,8 @@ const doc = {
     title: 'GymManager API',
     description: 'API for managing gym members and membership plans'
   },
-  host: 'localhost:3000',
-  schemes: ['http']
+  host: 'gym-manager-api-fd5i.onrender.com',
+  schemes: ['https']
 };
 
 const outputFile = './swagger.json';
