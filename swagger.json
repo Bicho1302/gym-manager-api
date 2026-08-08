@@ -1,0 +1,443 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "GymManager API",
+    "description": "API for managing gym members and membership plans",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/members/": {
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Get all gym members",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Members retrieved successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Create a new gym member",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Member information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "801-555-1234"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "1995-06-15"
+                },
+                "membershipPlanId": {},
+                "joinDate": {
+                  "type": "string",
+                  "example": "2026-08-08"
+                },
+                "membershipStatus": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "emergencyContact": {
+                  "type": "string",
+                  "example": "Jane Doe - 801-555-5678"
+                },
+                "assignedTrainerId": {}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Member created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/{id}": {
+      "get": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Get a member by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Member ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid member ID"
+          },
+          "404": {
+            "description": "Member not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Update an existing gym member",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Member ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated member information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "John"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Doe"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "john.doe@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "801-555-9999"
+                },
+                "dateOfBirth": {
+                  "type": "string",
+                  "example": "1995-06-15"
+                },
+                "membershipPlanId": {},
+                "joinDate": {
+                  "type": "string",
+                  "example": "2026-08-08"
+                },
+                "membershipStatus": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "emergencyContact": {
+                  "type": "string",
+                  "example": "Jane Doe - 801-555-5678"
+                },
+                "assignedTrainerId": {}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Member updated successfully"
+          },
+          "400": {
+            "description": "Invalid data or member ID"
+          },
+          "404": {
+            "description": "Member not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Members"
+        ],
+        "summary": "Delete a gym member",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Member ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Member deleted successfully"
+          },
+          "400": {
+            "description": "Invalid member ID"
+          },
+          "404": {
+            "description": "Member not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/plans/": {
+      "get": {
+        "tags": [
+          "Membership Plans"
+        ],
+        "summary": "Get all membership plans",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Membership plans retrieved successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Membership Plans"
+        ],
+        "summary": "Create a new membership plan",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Membership plan information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Premium"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Full access to gym facilities and classes"
+                },
+                "monthlyPrice": {
+                  "type": "number",
+                  "example": 49.99
+                },
+                "durationMonths": {
+                  "type": "number",
+                  "example": 12
+                },
+                "accessLevel": {
+                  "type": "string",
+                  "example": "full"
+                },
+                "isActive": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Membership plan created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/plans/{id}": {
+      "get": {
+        "tags": [
+          "Membership Plans"
+        ],
+        "summary": "Get a membership plan by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Membership plan ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Membership plan retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid plan ID"
+          },
+          "404": {
+            "description": "Membership plan not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Membership Plans"
+        ],
+        "summary": "Update an existing membership plan",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Membership plan ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated membership plan information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Premium"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Full access to gym facilities and premium classes"
+                },
+                "monthlyPrice": {
+                  "type": "number",
+                  "example": 54.99
+                },
+                "durationMonths": {
+                  "type": "number",
+                  "example": 12
+                },
+                "accessLevel": {
+                  "type": "string",
+                  "example": "full"
+                },
+                "isActive": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Membership plan updated successfully"
+          },
+          "400": {
+            "description": "Invalid data or plan ID"
+          },
+          "404": {
+            "description": "Membership plan not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Membership Plans"
+        ],
+        "summary": "Delete a membership plan",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Membership plan ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Membership plan deleted successfully"
+          },
+          "400": {
+            "description": "Invalid plan ID"
+          },
+          "404": {
+            "description": "Membership plan not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

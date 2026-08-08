@@ -1,0 +1,78 @@
+@baseUrl = http://localhost:3000
+
+### Get all members
+GET {{baseUrl}}/members
+
+### Create member
+POST {{baseUrl}}/members
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "801-555-1234",
+  "dateOfBirth": "1995-06-15",
+  "membershipPlanId": null,
+  "joinDate": "2026-08-08",
+  "membershipStatus": "active",
+  "emergencyContact": "Jane Doe - 801-555-5678",
+  "assignedTrainerId": null
+}
+### Get member by ID
+GET {{baseUrl}}/members/REPLACE_WITH_ID
+
+### Update member
+PUT {{baseUrl}}/members/REPLACE_WITH_ID
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "801-555-9999",
+  "dateOfBirth": "1995-06-15",
+  "membershipPlanId": null,
+  "joinDate": "2026-08-08",
+  "membershipStatus": "active",
+  "emergencyContact": "Jane Doe - 801-555-5678",
+  "assignedTrainerId": null
+}
+
+### Delete member
+DELETE {{baseUrl}}/members/REPLACE_WITH_ID
+
+### Get all membership plans
+GET {{baseUrl}}/plans
+
+### Create membership plan
+POST {{baseUrl}}/plans
+Content-Type: application/json
+
+{
+  "name": "Premium",
+  "description": "Full access to gym facilities and classes",
+  "monthlyPrice": 49.99,
+  "durationMonths": 12,
+  "accessLevel": "full",
+  "isActive": true
+}
+
+### Get plan by ID
+GET {{baseUrl}}/plans/REPLACE_WITH_ID
+
+### Update membership plan
+PUT {{baseUrl}}/plans/REPLACE_WITH_ID
+Content-Type: application/json
+
+{
+  "name": "Premium",
+  "description": "Full access to gym facilities and premium classes",
+  "monthlyPrice": 54.99,
+  "durationMonths": 12,
+  "accessLevel": "full",
+  "isActive": true
+}
+
+### Delete membership plan
+DELETE {{baseUrl}}/plans/REPLACE_WITH_ID
