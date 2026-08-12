@@ -3,10 +3,8 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
   info: {
     title: 'GymManager API',
-    description: 'API for managing gym members and membership plans'
-  },
-  host: 'gym-manager-api-fd5i.onrender.com',
-  schemes: ['https']
+    description: 'API for managing gym members, membership plans, trainers, and workout sessions'
+  }
 };
 
 const outputFile = './swagger.json';

@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "title": "GymManager API",
-    "description": "API for managing gym members and membership plans",
+    "description": "API for managing gym members, membership plans, trainers, and workout sessions",
     "version": "1.0.0"
   },
-  "host": "gym-manager-api-fd5i.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
@@ -17,6 +17,46 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/github": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/github/callback": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/status": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
@@ -435,6 +475,440 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/trainers/": {
+      "get": {
+        "tags": [
+          "Trainers"
+        ],
+        "summary": "Get all trainers",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Trainers retrieved successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Trainers"
+        ],
+        "summary": "Create a new trainer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Trainer information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Sarah"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Johnson"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "sarah.johnson@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "801-555-2468"
+                },
+                "specialty": {
+                  "type": "string",
+                  "example": "Strength Training"
+                },
+                "yearsOfExperience": {
+                  "type": "number",
+                  "example": 5
+                },
+                "availability": {
+                  "type": "string",
+                  "example": "Monday-Friday"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Trainer created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/trainers/{id}": {
+      "get": {
+        "tags": [
+          "Trainers"
+        ],
+        "summary": "Get a trainer by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Trainer ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trainer retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid trainer ID"
+          },
+          "404": {
+            "description": "Trainer not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Trainers"
+        ],
+        "summary": "Update an existing trainer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Trainer ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated trainer information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "Sarah"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Johnson"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "sarah.johnson@example.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "801-555-9999"
+                },
+                "specialty": {
+                  "type": "string",
+                  "example": "Strength Training"
+                },
+                "yearsOfExperience": {
+                  "type": "number",
+                  "example": 6
+                },
+                "availability": {
+                  "type": "string",
+                  "example": "Monday-Saturday"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Trainer updated successfully"
+          },
+          "400": {
+            "description": "Invalid data or trainer ID"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "404": {
+            "description": "Trainer not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Trainers"
+        ],
+        "summary": "Delete a trainer",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Trainer ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Trainer deleted successfully"
+          },
+          "400": {
+            "description": "Invalid trainer ID"
+          },
+          "404": {
+            "description": "Trainer not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/sessions/": {
+      "get": {
+        "tags": [
+          "Workout Sessions"
+        ],
+        "summary": "Get all workout sessions",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Workout sessions retrieved successfully"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workout Sessions"
+        ],
+        "summary": "Create a new workout session",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Workout session information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "memberId": {
+                  "type": "string",
+                  "example": "REPLACE_WITH_MEMBER_ID"
+                },
+                "trainerId": {
+                  "type": "string",
+                  "example": "REPLACE_WITH_TRAINER_ID"
+                },
+                "sessionDate": {
+                  "type": "string",
+                  "example": "2026-08-12"
+                },
+                "startTime": {
+                  "type": "string",
+                  "example": "10:00"
+                },
+                "durationMinutes": {
+                  "type": "number",
+                  "example": 60
+                },
+                "workoutType": {
+                  "type": "string",
+                  "example": "Strength Training"
+                },
+                "notes": {
+                  "type": "string",
+                  "example": "Focus on upper body"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "scheduled"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Workout session created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/sessions/{id}": {
+      "get": {
+        "tags": [
+          "Workout Sessions"
+        ],
+        "summary": "Get a workout session by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Workout session ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workout session retrieved successfully"
+          },
+          "400": {
+            "description": "Invalid session ID"
+          },
+          "404": {
+            "description": "Workout session not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Workout Sessions"
+        ],
+        "summary": "Update an existing workout session",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Workout session ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated workout session information",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "memberId": {
+                  "type": "string",
+                  "example": "REPLACE_WITH_MEMBER_ID"
+                },
+                "trainerId": {
+                  "type": "string",
+                  "example": "REPLACE_WITH_TRAINER_ID"
+                },
+                "sessionDate": {
+                  "type": "string",
+                  "example": "2026-08-12"
+                },
+                "startTime": {
+                  "type": "string",
+                  "example": "11:00"
+                },
+                "durationMinutes": {
+                  "type": "number",
+                  "example": 75
+                },
+                "workoutType": {
+                  "type": "string",
+                  "example": "Strength Training"
+                },
+                "notes": {
+                  "type": "string",
+                  "example": "Updated workout plan"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "scheduled"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Workout session updated successfully"
+          },
+          "400": {
+            "description": "Invalid data or session ID"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "404": {
+            "description": "Workout session not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workout Sessions"
+        ],
+        "summary": "Delete a workout session",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Workout session ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Workout session deleted successfully"
+          },
+          "400": {
+            "description": "Invalid session ID"
+          },
+          "404": {
+            "description": "Workout session not found"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }

@@ -1,17 +1,25 @@
 const { MongoClient } = require('mongodb');
 
-const client = new MongoClient(process.env.MONGODB_URI);
-
+let client;
 let database;
 
 async function connectDB() {
   try {
+    if (database) {
+      return database;
+    }
+
+    client = new MongoClient(process.env.MONGODB_URI);
+
     await client.connect();
     database = client.db();
+
     console.log('Connected to MongoDB');
+
+    return database;
   } catch (error) {
     console.error('MongoDB connection failed:', error);
-    process.exit(1);
+    throw error;
   }
 }
 
@@ -23,7 +31,16 @@ function getDB() {
   return database;
 }
 
+async function closeDB() {
+  if (client) {
+    await client.close();
+    client = null;
+    database = null;
+  }
+}
+
 module.exports = {
   connectDB,
-  getDB
+  getDB,
+  closeDB
 };
